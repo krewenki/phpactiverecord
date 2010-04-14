@@ -114,8 +114,6 @@ class ActiveRecord {
 		
 		if(!is_null($id) && $id > 0){
 			$this->id = $id;
-			#$query = "SELECT * FROM ".$this->_tablename." WHERE ".$this->_key_column."='".$id."'";
-			echo $query;
 			$result = ActiveRecord::$db->query("SELECT * FROM ".$this->_tablename." WHERE ".$this->_key_column."='".$id."'");
 			$array = $result->fetchRow(MDB2_FETCHMODE_ASSOC);
 			foreach($array as $key => $val){
