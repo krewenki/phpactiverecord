@@ -1,0 +1,24 @@
+ActiveRecord for PHP
+
+Loosely based on the ruby ActiveRecord class.  Makes heavy use of MDB2
+
+
+Usage:
+
+1) First, include ActiveRecord:
+
+require_once('phpactiverecord/ActiveRecord.class.php');
+
+2) Connect to your database. You can use any MDB2 supported database
+
+ActiveRecord::connect('mysql://username:password@host:port/database');
+
+3) Create your class
+
+class User extends ActiveRecord {
+
+	public function __construct($id=null){
+		parent::__construct($id);
+	}
+
+}
