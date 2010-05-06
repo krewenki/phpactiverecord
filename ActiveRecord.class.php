@@ -398,6 +398,18 @@ class ActiveRecord {
 		
 	}
 	
+	/**
+	 * delete
+	 * Exactly what you expect. be careful.
+	 **/
+	public function delete(){
+		if($this->id > 0){
+			$query = 'DELETE FROM '.$this->_tablename .' WHERE '. $this->key_column ."='".$this->id."' LIMIT 1";
+			ActiveRecord::$db->query($query);
+		}
+		return true;
+	}	
+	
 	public function has_many($obj=null){
 		if(class_exists(substr($obj,0,strlen($obj)-1))){
 			$this->_has_many[] = $obj;
