@@ -404,7 +404,7 @@ class ActiveRecord {
 	 **/
 	public function delete(){
 		if($this->id > 0){
-			$query = 'DELETE FROM '.$this->_tablename .' WHERE '. $this->key_column ."='".$this->id."' LIMIT 1";
+			$query = 'DELETE FROM '.$this->_tablename .' WHERE '. $this->_key_column ."='".$this->id."' LIMIT 1";
 			ActiveRecord::$db->query($query);
 		}
 		return true;
