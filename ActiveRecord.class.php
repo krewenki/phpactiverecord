@@ -298,7 +298,6 @@ class ActiveRecord {
 		$query = "SELECT * FROM ".$this->_tablename." {$conditions}";
 		$this->_result = ActiveRecord::$db->query($query);
 		$this->_number_of_results = $this->_result->numRows();
-		
 		return true;
 	}
 	
@@ -348,6 +347,7 @@ class ActiveRecord {
 		} else {
 			$NEW = true;
 			$query = 'INSERT INTO '.$this->_tablename .' ';
+			$this->created_on = date("Y-m-d H:i:s");
 		}
 		
 		$key_column = $this->_key_column;
@@ -355,10 +355,8 @@ class ActiveRecord {
 		foreach($this->_columns as $column){
 			if(($column == 'id' || $column == $this->_key_column) && $this->$key_column <= 0){
 				$value = NULL;
-			} elseif($column == 'created_on' || $column == 'updated_on') {
-				if(($column == 'created_on' && $NEW) || $column == 'updated_on'){
-					$value = date("Y-m-d H:i:s");
-				}
+			} elseif($column == 'updated_on') {
+				$value = date("Y-m-d H:i:s");
 			} else {
 				$value = mysql_real_escape_string($this->$column);
 			}
