@@ -339,7 +339,6 @@ class ActiveRecord {
 	}
 	
 	public function save(){
-		$this->hook('BEFORE_SAVE');
 		if($this->id > 0){
 			$NEW = false;
 			$query = 'UPDATE '.$this->_tablename .' ';
@@ -365,7 +364,7 @@ class ActiveRecord {
 				$value = filter_var($value,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
 			}
 			
-			if($column != 'id'){
+			if($column != 'id' && ($column != 'created_on' && !$NEW)){
 				$columns[] = $column;
 				$properties[] = $value;
 				$values[] = " {$column} = ? ";
@@ -384,7 +383,6 @@ class ActiveRecord {
 
 		$last_id = ActiveRecord::$db->lastInsertID();
 
-		$this->hook('AFTER_SAVE');
 
 		if($last_id > 0){
 			$this->$key_column = $last_id;
@@ -434,10 +432,6 @@ class ActiveRecord {
 		
 	}
 	
-	public function before_save($func){
-		$this->events['BEFORE_SAVE'] = $func;
-		return true;
-	}
 	
 	public function __toString(){
 		return $this->_class . ' object';
